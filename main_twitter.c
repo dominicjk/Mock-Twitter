@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "create_twitter.c"
+#include "delete-user.c"
+
+
 
 void CloseTwitter(void);
 
@@ -51,6 +54,10 @@ int main() {//start of main
             }
             else if (key == 5) {
             //Delete account
+                user *a = &twitter_system.users[i];
+                deleteuser(a, &twitter_system);
+                //increment i since each user is shifted one place to the left after a user is deleted
+                i = i - 1;
             }
             else if (key == 6) {
                 CloseTwitter();
@@ -64,7 +71,7 @@ int main() {//start of main
         if (key == 0) {
         }
         if (i  == twitter_system.num_users - 2) {
-            i = -1;
+            i = - 1;
         }
     }
 }
