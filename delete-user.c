@@ -1,4 +1,6 @@
 #include "delete-user.h"
+#include "unfollow_user.h"
+
 //DELETE ACCOUNT FUNCTION
 /*an outer loop will iterate over all the users in the system. When the user intended for deletion is
   matched, then each subsequent user is shifted one place to the left of the user array, which overwrites
@@ -21,6 +23,13 @@ void deleteuser(user* a, twitter *system) {
 
                     *a = *b; //overwrite deleted user
                 }
+            }
+        }
+    }
+      for (int i = 0; i < system -> num_users; i++) {
+        for (int j = 0; j < system -> users[i] .num_following; j++) {
+            if (strcmp(a -> username, system -> users[i].following[j]) == 0) {
+                unfollow(&system -> users[i], a);
             }
         }
     }
