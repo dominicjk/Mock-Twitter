@@ -1,5 +1,4 @@
 #include "delete-user.h"
-#include "unfollow_user.h"
 
 //DELETE ACCOUNT FUNCTION
 /*an outer loop will iterate over all the users in the system. When the user intended for deletion is
@@ -26,12 +25,6 @@ void deleteuser(user* a, twitter *system) {
             }
         }
     }
-      for (int i = 0; i < system -> num_users; i++) {
-        for (int j = 0; j < system -> users[i] .num_following; j++) {
-            if (strcmp(a -> username, system -> users[i].following[j]) == 0) {
-                unfollow(&system -> users[i], a);
-            }
-        }
-    }
+
     system -> num_users--; //decrement total user count
 }
