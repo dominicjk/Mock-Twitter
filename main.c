@@ -3,7 +3,9 @@
 #include "create_twitter.c"
 #include "delete-user.c"
 #include "follow-user.c"
-
+#include "post-tweet.c"
+#include "unfollow-user.c"
+#include "next-user.c"
 
 
 void CloseTwitter(void);
@@ -50,13 +52,20 @@ int main() {//start of main
                 follow(a, b);
             }
             else if (key == 2) {
-             //tweet Function
+                user *a = &twitter_system.users[i];
+                tweet *c = &twitter_system.news_feed[twitter_system.num_tweets];
+                post_tweet(a, c, &twitter_system);
             }
             else if (key == 3) {
              //News Feed
             }
             else if (key == 4) {
-                //Unfollow
+                user *a = &twitter_system.users[i];
+                printf("Enter index of user that %s will unfollow ", a->username);
+                int index;
+                scanf("%d", &index);
+                user *b = &twitter_system.users[index];
+                unfollow(a, b);
             }
             else if (key == 5) {
             //Delete account
@@ -68,6 +77,9 @@ int main() {//start of main
             else if (key == 6) {
                 CloseTwitter();
             }
+            else {
+                printf("function out of range\n");
+            }
 
             //when function executes ask user to input a new function
             printf("enter new key");
@@ -75,7 +87,10 @@ int main() {//start of main
 
         }
         if (key == 0) {
+            nextuser(usr);
         }
+
+        //reverse the counter if the loop is nearing it's end. this creates an infinite loop unless the CloseTwitter() function is called)
         if (i  == twitter_system.num_users - 2) {
             i = - 1;
         }
