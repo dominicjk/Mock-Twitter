@@ -27,7 +27,6 @@ void nextuser(user* a) {
     //print the list of names the user is following (unless user is not following anyone)
     if (a -> num_following > 0) {
         printf("==================| FOLLOWING\n");
-        //printf("%d", sizeof(a->following));
         int lim2 = a->num_following;
         for (int j = 0; j < lim2; j++) {
             printf("%s, ", &a->following[j][USR_LENGHT]);
