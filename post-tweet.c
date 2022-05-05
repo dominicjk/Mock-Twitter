@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "post_tweet.h"
+#include "post-tweet.h"
 
 /*function takes three parameters, the user who is posting the tweet, the tweet message and the twitter system
  * The function first prompts the user to enter a message using fgets. Then the tweet is copied into the appropriate
@@ -22,6 +22,4 @@ void post_tweet(user* a, tweet* c, twitter *twitter_system) {
 
     //increment number of tweets
     twitter_system -> num_tweets++;
-}
-
 }
