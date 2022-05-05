@@ -16,7 +16,6 @@ void follow(user* a, user* b) {
     if (bool == 0) {
         strcpy(&a->following[a->num_following][USR_LENGHT], &b->username);
         strcpy(&b->followers[b->num_followers][USR_LENGHT], &a->username);
-        //printf("%s", &a -> following[a->num_following][USR_LENGHT]);
         a->num_following++;
         b->num_followers++;
     }
