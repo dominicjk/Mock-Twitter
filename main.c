@@ -6,6 +6,7 @@
 #include "post-tweet.c"
 #include "unfollow-user.c"
 #include "next-user.c"
+#include "news-feed.c"
 
 
 void CloseTwitter(void);
@@ -24,15 +25,21 @@ int main() {//start of main
         //print initial profile of each user
         printf("User %i: %s; Followers: %d; Following: %d\n",i + 1, usr.username, usr.num_followers, usr.num_followers );
     }
+    //display twitter description
+    printf("\nTWITTER SYSTEM ===\n"
+           "\t- Each user has a turn to perform any amount of function (see keys below)\n"
+           "\t- When next-user() is activated, that user will end it's turn and move onto the next\n"
+           "\t- When the last user is skipped, the twitter system will loop back to the first user\n"
+           "\t- CloseTwitter() can be activated at any stage to stop the program\n");
     //display function keys to the users
-    printf("FUNCTION KEYS\n"
-           "0 = Move To Next User\n"
-           "1 = Follow\n"
-           "2 = Post Tweet\n"
-           "3 = Get News Feed\n"
-           "4 = Unfollow\n"
-           "5 = Delete Account\n"
-           "6 = Close Twitter\n");
+    printf("\nFUNCTION KEYS ===\n"
+           "\t- 0 = Move To Next User\n"
+           "\t- 1 = Follow\n"
+           "\t- 2 = Post Tweet\n"
+           "\t- 3 = Get News Feed\n"
+           "\t- 4 = Unfollow\n"
+           "\t- 5 = Delete Account\n"
+           "\t- 6 = Close Twitter\n");
 
     //iterate over each user and ask user to prompt a function
     for (int i =0; i < twitter_system.num_users - 1; i++) {
@@ -45,32 +52,27 @@ int main() {//start of main
         while (key != 0) {
             if (key == 1) {
                 int index;
-                user *a = &twitter_system.users[i];
-                printf("Enter index of user that %s will follow: ", a->username);
+                printf("Enter index of user that %s will follow: ", usr->username);
                 scanf("%d", &index);
-                user *b = &twitter_system.users[index];
-                follow(a, b);
+                user *b = &twitter_system.users[index]; //user that usr will follow
+                follow(usr, b); //"usr will follow b"
             }
             else if (key == 2) {
-                user *a = &twitter_system.users[i];
-                tweet *c = &twitter_system.news_feed[twitter_system.num_tweets];
-                post_tweet(a, c, &twitter_system);
+                tweet *c = &twitter_system.news_feed[twitter_system.num_tweets]; //create the slot to insert the tweet
+                post_tweet(usr, c, &twitter_system); //"usr will tweet message stored in c"
             }
             else if (key == 3) {
-             //News Feed
+                newsfeed(usr, &twitter_system); //"print the news feed for usr"
             }
             else if (key == 4) {
-                user *a = &twitter_system.users[i];
-                printf("Enter index of user that %s will unfollow ", a->username);
+                printf("Enter index of user that %s will unfollow ", usr->username);
                 int index;
                 scanf("%d", &index);
-                user *b = &twitter_system.users[index];
-                unfollow(a, b);
+                user *b = &twitter_system.users[index]; //person usr will unfollow
+                unfollow(usr, b); //"usr will unfollow b"
             }
             else if (key == 5) {
-            //Delete account
-                user *a = &twitter_system.users[i];
-                deleteuser(a, &twitter_system);
+                deleteuser(usr, &twitter_system); //"usr will delete their account"/
                 //increment i since each user is shifted one place to the left after a user is deleted
                 i = i - 1;
             }
@@ -81,9 +83,13 @@ int main() {//start of main
                 printf("function out of range\n");
             }
 
-            //when function executes ask user to input a new function
-            printf("enter new key");
-            scanf("%d", &key);
+            if (key != 5 ) {//when function executes ask user to input a new function
+                printf("enter new key");
+                scanf("%d", &key);
+            }
+            else {
+                key = 0;
+            }
 
         }
         if (key == 0) {
