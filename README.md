@@ -1,1 +1,4 @@
-# COMP10050_Project_21424072
+# COMP10050_Project
+
+Dominykas Jakubauskas 
+Vida Ewubare
